@@ -1,0 +1,10 @@
+file = open("novo_arquivo.txt", "r+")
+file.write("Testando r+")
+file.seek(10)
+file.write("Novo teste do r+")
+file.close()
+
+file = open("novo_arquivo.txt", "r+")
+file.seek(0)
+print(file.read())
+file.close()
