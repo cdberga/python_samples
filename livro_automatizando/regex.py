@@ -19,3 +19,6 @@ print(mo1.group())
 nongreedyHaRegex = re.compile(r'(Ha){3,5}?')
 mo2 = nongreedyHaRegex.search('HaHaHaHaHa')
 print(mo2.group())
+
+phoneNumRegex = re.compile(r'\d\d\d-\d\d\d-\d\d\d\d') # não tem nenhum grupo
+print(phoneNumRegex.findall('Cell: 415-555-9999 Work: 212-555-0000'))
