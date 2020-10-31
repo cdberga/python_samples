@@ -15,6 +15,9 @@ def acmTeam(topic):
     ind_f = 0
     ind_s = 0
 
+    if check_attendees(topic) == False:
+        return [0, 0]
+
     for f_member in topic:
         for s_member in topic:
             if ind_f < ind_s:
@@ -30,14 +33,26 @@ def acmTeam(topic):
 
     return [max_topics, teams_max]
 
+def check_attendees(topic):
+    qt_lines = len(topic)
+    return qt_lines >= 2 and qt_lines <= 500
+
+def check_topics(topics):
+    return topics >= 1 and topics <= 500
+
 def sum_topics(f, s):
     sum_ = 0
     i = 0
+    attends = check_topics(f,s)
+
     while i < len(f):
-        if f[i] == 1 or s[i] == 1:
+        if attends(i):
             sum_ += 1
         i += 1
     return sum_
+
+def check_topics(f, s):
+    return lambda n : int(f[n]) == 1 or int(s[n]) == 1
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
