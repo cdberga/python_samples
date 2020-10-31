@@ -13,23 +13,24 @@ def acmTeam(topic):
     teams_max = 0
 
     ind_f = 0
-    ind_s = 0
+    ind_s = 1
 
     if check_attendees(topic) == False:
         return [0, 0]
 
-    for f_member in topic:
-        for s_member in topic:
-            if ind_f < ind_s:
-                mem_topics = sum_topics(f_member, s_member)
-                if mem_topics > max_topics:
-                    max_topics = mem_topics
-                    teams_max = 1
-                elif mem_topics == max_topics:
-                    teams_max += 1
+    len_topic = len(topic)
+
+    while ind_f < len_topic:
+        while ind_s < len_topic:
+            mem_topics = sum_topics(topic[ind_f], topic[ind_s])
+            if mem_topics > max_topics:
+                max_topics = mem_topics
+                teams_max = 1
+            elif mem_topics == max_topics:
+                teams_max += 1
             ind_s += 1
-        ind_s = 0
         ind_f += 1
+        ind_s = ind_f+1
 
     return [max_topics, teams_max]
 
@@ -45,14 +46,15 @@ def sum_topics(f, s):
     i = 0
     attends = check_topics(f,s)
 
-    while i < len(f):
+    len_f = range(0, len(f))
+    for i in len_f:
         if attends(i):
             sum_ += 1
-        i += 1
+
     return sum_
 
 def check_topics(f, s):
-    return lambda n : int(f[n]) == 1 or int(s[n]) == 1
+    return lambda n : f[n] == '1' or s[n] == '1'
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
